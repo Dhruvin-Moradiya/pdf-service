@@ -14,5 +14,21 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  localstack:
+    image: localstack/localstack:2.0
+    container_name: localstack_s3
+    restart: always
+    environment:
+      - SERVICES=s3
+      - DEBUG=1
+      - DATA_DIR=/tmp/localstack/data
+      - DEFAULT_REGION=ap-south-1
+    ports:
+      - "4566:4566"   # LocalStack edge port (all services)
+      - "4571:4571"
+    volumes:
+      - ./localstack:/etc/localstack
+      - /var/run/docker.sock:/var/run/docker.sock
+
 volumes:
   postgres_data:

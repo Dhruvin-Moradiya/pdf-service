@@ -1,6 +1,7 @@
 package com.dsm.pdf_service.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -56,5 +57,11 @@ public class TemplateController {
     public ResponseEntity<Void> deleteTemplate(@PathVariable String id) {
         templateService.deleteTemplate(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/{id}/generate")
+    public ResponseEntity<Void> generatePdf(@PathVariable String id, @RequestBody Map<String, Object> jsonData) {
+        templateService.generatePdf(id, jsonData);
+        return ResponseEntity.ok().build();
     }
 }
